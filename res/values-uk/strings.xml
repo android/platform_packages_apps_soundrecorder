@@ -1,41 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- application name and title of error dialogs-->
     <string name="app_name">"Запис звуку"</string>
+
+    <!-- Screen title before and during recording -->
     <string name="record_your_message">"Запис повідомлення"</string>
+    <!-- Screen title after recording -->
     <string name="message_recorded">"Повідомлення записано"</string>
+    <!-- Screen title while playing back a recording -->
     <string name="review_message">"Перевірка повідомлення"</string>
+    <!-- Label shown during recording -->
     <string name="recording">"Запис"</string>
+    <!-- Label shown when the recording is stopped for a reason other than the user stopping it (e.g. the sd card was removed) -->
     <string name="recording_stopped">"Запис зупинено"</string>
-    <string name="storage_is_full">"Память заповнена"</string>
+    <!-- label shown when there is not enough space to record something -->
+    <string name="storage_is_full">"Пам'ять заповнена"</string>
+    <!-- label shown when the recording has reached maximum allowed file size -->
     <string name="max_length_reached">"Досягнено максимального розміру"</string>
-    <string name="insert_sd_card">"Вставте карту SD"</string>
-    <string name="min_available">"залишилось <xliff:g id="MINUTES">%d</xliff:g> хв."</string>
-    <string name="sec_available">"залишилось <xliff:g id="SECONDS">%d</xliff:g> сек."</string>
+    <!-- label shown when there is no sd card available to record to -->
+    <string name="insert_sd_card">"Вставте карту SD "</string>
+    <!-- label shown when there is more than 1 minute but less than 9 minutes of space left to record -->
+    <string name="min_available">"залишилось <xliff:g id="minutes">%d</xliff:g> хв."</string>
+    <!-- label shown when there is less than 1 minute of space left to record -->
+    <string name="sec_available">"залишилось <xliff:g id="seconds">%d</xliff:g>сек."</string>
+
+    <!-- button to accept the current recording and return it to the caller -->
     <string name="accept">"Використати цей запис"</string>
-    <string name="discard">"Закрити"</string>
+    <!-- button to discard the current recording and return to the caller -->
+    <string name="discard">"Відмінити"</string>
+    <!-- acknowlegement button in a number of dialogs -->
     <string name="button_ok">"ОК"</string>
+    <!-- Do not translate. Format of the timer that shows how much has been recorded so far -->
+    <string name="timer_format">"<xliff:g id="format">%02d:%02d</xliff:g>"</string>
+    <!-- label shown before the user has recorded anything -->
     <string name="press_record">"Натисніть \"Запис\""</string>
-    <!-- no translation found for audio_db_title_format (7616097189642558199) -->
-    <skip />
+   
+    <!-- the name under which recordings will be visible in the media database is formatted like this --> 
+    <string name="audio_db_title_format">"<xliff:g id="format">yyyy-MM-dd HH:mm:ss</xliff:g>"</string>
+    <!-- all recordings will show up in the media database with this 'artist' name -->
     <string name="audio_db_artist_name">"Ваші записи"</string>
+    <!-- all recordings will show up in the media database with this 'album' name -->
     <string name="audio_db_album_name">"Звукові записи"</string>
+    <!-- all recordings will show up in the media database in a playlist with this name -->
     <string name="audio_db_playlist_name">"Мої записи"</string>
-    <string name="error_sdcard_access">"Немає доступу до карти SD"</string>
-    <string name="error_app_internal">"Внутрішня помилка додатку"</string>
+   
+    <!-- shown as the message in a dialog when an error occured because of an error accessing the sd card -->
+    <string name="error_sdcard_access">"Немає доступу до карти SD "</string>
+    <!-- shown as the message in a dialog when the app encountered an unspecified internal error -->
+    <string name="error_app_internal">"Внутрішня помилка програми"</string>
+    <!-- shown as the message in a dialog when the recording could not be added to the media database -->
     <string name="error_mediadb_new_record">"Не вдається зберегти записаний звук"</string>
 </resources>
