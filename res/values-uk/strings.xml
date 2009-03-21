@@ -21,7 +21,7 @@
     <string name="review_message">"Перевірка повідомлення"</string>
     <string name="recording">"Запис"</string>
     <string name="recording_stopped">"Запис зупинено"</string>
-    <string name="storage_is_full">"Память заповнена"</string>
+    <string name="storage_is_full">"Пам'ять заповнена"</string>
     <string name="max_length_reached">"Досягнено максимального розміру"</string>
     <string name="insert_sd_card">"Вставте карту SD"</string>
     <string name="min_available">"залишилось <xliff:g id="MINUTES">%d</xliff:g> хв."</string>
