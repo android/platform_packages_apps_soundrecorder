@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.BroadcastReceiver;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -23,9 +24,12 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -46,7 +50,7 @@ class RemainingTimeCalculator {
     public static final int UNKNOWN_LIMIT = 0;
     public static final int FILE_SIZE_LIMIT = 1;
     public static final int DISK_SPACE_LIMIT = 2;
-    
+
     // which of the two limits we will hit (or have fit) first
     private int mCurrentLowerLimit = UNKNOWN_LIMIT;
     
@@ -189,7 +193,11 @@ public class SoundRecorder extends Activity
     
     static final int BITRATE_AMR =  5900; // bits/sec
     static final int BITRATE_3GPP = 5900;
-    
+
+    public static final int MENU_SEETTING_ID = Menu.FIRST;
+
+    SharedPreferences mPreferences;
+
     WakeLock mWakeLock;
     String mRequestedType = AUDIO_ANY;
     Recorder mRecorder;
@@ -243,6 +251,8 @@ public class SoundRecorder extends Activity
                 = android.provider.MediaStore.Audio.Media.EXTRA_MAX_BYTES;
             mMaxFileSize = i.getLongExtra(EXTRA_MAX_BYTES, -1);
         }
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         
         if (AUDIO_ANY.equals(mRequestedType)) {
             mRequestedType = AUDIO_3GPP;
@@ -299,7 +309,30 @@ public class SoundRecorder extends Activity
         
         outState.putBundle(RECORDER_STATE_KEY, recorderState);
     }
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0,MENU_SEETTING_ID, 0, R.string.settings);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case MENU_SEETTING_ID:
+            Log.v(TAG, "Menu Launch : SoundRecorderSettings");
+            Intent intent = new Intent();
+            intent.setClass(SoundRecorder.this, SoundRecorderSettings.class);
+            startActivity(intent);
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     /*
      * Whenever the UI is re-created (due f.ex. to orientation change) we have
      * to reinitialize references to the views.
@@ -364,13 +397,16 @@ public class SoundRecorder extends Activity
                     updateUi();
                 } else {
                     stopAudioPlayback();
+                    int AudioEncoder = getIntPreference(SoundRecorderSettings.KEY_AUDIO_ENCODER,
+                    SoundRecorderSettings.DEFAULT_AUDIO_ENCODER_VALUE);
+                    Log.v(TAG, "AudioEncoder = "+AudioEncoder);
 
                     if (AUDIO_AMR.equals(mRequestedType)) {
                         mRemainingTimeCalculator.setBitRate(BITRATE_AMR);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.RAW_AMR, ".amr");
+                        mRecorder.startRecording(MediaRecorder.OutputFormat.RAW_AMR, ".amr",AudioEncoder);
                     } else if (AUDIO_3GPP.equals(mRequestedType)) {
                         mRemainingTimeCalculator.setBitRate(BITRATE_3GPP);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp");
+                        mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp",AudioEncoder);
                     } else {
                         throw new IllegalArgumentException("Invalid output file type requested");
                     }
@@ -798,7 +834,18 @@ public class SoundRecorder extends Activity
         updateTimerView();   
         mVUMeter.invalidate();
     }
-    
+
+    private int getIntPreference(String key, int defaultValue) {
+        String s = mPreferences.getString(key, "");
+        int result = defaultValue;
+        try {
+            result = Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            // Ignore, result is already the default value.
+        }
+        return result;
+    }
+
     /*
      * Called when Recorder changed it's state.
      */

@@ -50,4 +50,19 @@
     <string name="error_app_internal">Internal application error</string>
     <!-- shown as the message in a dialog when the recording could not be added to the media database -->
     <string name="error_mediadb_new_record">Unable to save recorded audio</string>
+
+    <!-- Settings screen, Audio Encoder category title -->
+    <string name="pref_soundrecorder_audioencoder_category">Audio Encoder</string>
+    <!-- Default Audio Encoder setting. A numerical value. Do not translate. -->
+    <string name="pref_soundrecorder_audioencoder_default">1</string>
+    <!-- Settings screen, Select Audio Encoder title -->
+    <string name="pref_soundrecorder_audioencoder_title">Select Audio Encoder</string>
+    <!-- Settings screen, Audio Encoder dialog radio button choices -->
+    <string name="pref_soundrecorder_audioencoder_entry_1">AMR-NB</string>
+    <string name="pref_soundrecorder_audioencoder_entry_2">AAC</string>
+    <!-- Settings screen, Audio Encoder dialog title -->
+    <string name="pref_soundrecorder_audioencoder_dialogtitle">Audio Encoder</string>
+
+    <!-- menu pick to go to the settings screen -->
+    <string name="settings">Settings</string>
 </resources>
