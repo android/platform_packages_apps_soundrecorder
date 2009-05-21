@@ -64,9 +64,11 @@ public class SoundRecorderSettings extends PreferenceActivity
         if(vidAudioEncoderValue == 1){        // MediaRecorder.AudioEncoder.AMR_NB
             vidAudioEncoderIndex = 0;
         }
-        else if(vidAudioEncoderValue == 2){   // MediaRecorder.AudioEncoder.AAC
-
+        else if(vidAudioEncoderValue == 2){   // MediaRecorder.AudioEncoder.AMR_WB
             vidAudioEncoderIndex = 1;
+        }
+        else if(vidAudioEncoderValue == 3){   // MediaRecorder.AudioEncoder.AMR_WB
+            vidAudioEncoderIndex = 2;
         }
         String[] vidAudioEncoders =
             getResources().getStringArray(R.array.pref_soundrecorder_audioencoder_entries);

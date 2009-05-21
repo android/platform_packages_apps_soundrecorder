@@ -59,7 +59,8 @@
     <string name="pref_soundrecorder_audioencoder_title">Select Audio Encoder</string>
     <!-- Settings screen, Audio Encoder dialog radio button choices -->
     <string name="pref_soundrecorder_audioencoder_entry_1">AMR-NB</string>
-    <string name="pref_soundrecorder_audioencoder_entry_2">AAC</string>
+    <string name="pref_soundrecorder_audioencoder_entry_2">AMR-WB</string>
+    <string name="pref_soundrecorder_audioencoder_entry_3">AAC</string>
     <!-- Settings screen, Audio Encoder dialog title -->
     <string name="pref_soundrecorder_audioencoder_dialogtitle">Audio Encoder</string>
 

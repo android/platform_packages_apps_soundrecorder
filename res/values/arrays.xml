@@ -20,10 +20,12 @@
     <string-array name="pref_soundrecorder_audioencoder_entries">
         <item>@string/pref_soundrecorder_audioencoder_entry_1</item>
         <item>@string/pref_soundrecorder_audioencoder_entry_2</item>
+        <item>@string/pref_soundrecorder_audioencoder_entry_3</item>
     </string-array>
 
     <string-array name="pref_soundrecorder_audioencoder_entryvalues">
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>
