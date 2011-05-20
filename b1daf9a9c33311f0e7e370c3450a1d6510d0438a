@@ -1,0 +1,8 @@
+Change-Id: Ib1daf9a9c33311f0e7e370c3450a1d6510d0438a
+Code-Review+2: Jean-Baptiste Queru <jbq@google.com>
+Verified+1: Jean-Baptiste Queru <jbq@google.com>
+Submitted-by: Jean-Baptiste Queru <jbq@google.com>
+Submitted-at: Wed, 18 Mar 2009 13:58:29 -0700
+Reviewed-on: https://review.source.android.com/9194
+Project: platform/packages/apps/SoundRecorder
+Branch: refs/heads/master
