@@ -22,6 +22,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -203,6 +204,7 @@ public class SoundRecorder extends Activity
     static final String AUDIO_AMR = "audio/amr";
     static final String AUDIO_ANY = "audio/*";
     static final String ANY_ANY = "*/*";
+    static final int DIALOG_MIEDIA_NEW_RECORD_FAIL_ID = 0;
     
     static final int BITRATE_AMR =  5900; // bits/sec
     static final int BITRATE_3GPP = 5900;
@@ -316,6 +318,24 @@ public class SoundRecorder extends Activity
         recorderState.putLong(MAX_FILE_SIZE_KEY, mMaxFileSize);
         
         outState.putBundle(RECORDER_STATE_KEY, recorderState);
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        AlertDialog dialog;
+        switch (id) {
+            case DIALOG_MIEDIA_NEW_RECORD_FAIL_ID:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.app_name)
+                .setMessage(R.string.error_mediadb_new_record)
+                .setPositiveButton(R.string.button_ok, null)
+                .setCancelable(false);
+                dialog = builder.create();
+                break;
+            default:
+                dialog = null;
+                break;
+        }
+        return dialog;
     }
     
     /*
@@ -624,12 +644,7 @@ public class SoundRecorder extends Activity
         Log.d(TAG, "ContentURI: " + base);
         Uri result = resolver.insert(base, cv);
         if (result == null) {
-            new AlertDialog.Builder(this)
-                .setTitle(R.string.app_name)
-                .setMessage(R.string.error_mediadb_new_record)
-                .setPositiveButton(R.string.button_ok, null)
-                .setCancelable(false)
-                .show();
+            showDialog(DIALOG_MIEDIA_NEW_RECORD_FAIL_ID);
             return null;
         }
         if (getPlaylistId(res) == -1) {
