@@ -563,12 +563,14 @@ public class SoundRecorder extends Activity
         }
         int id = -1;
         if (cursor != null) {
-            cursor.moveToFirst();
-            if (!cursor.isAfterLast()) {
-                id = cursor.getInt(0);
+            try {
+                if (cursor.moveToFirst()) {
+                    id = cursor.getInt(0);
+                }
+            } finally {
+                cursor.close();
             }
         }
-        cursor.close();
         return id;
     }
     
