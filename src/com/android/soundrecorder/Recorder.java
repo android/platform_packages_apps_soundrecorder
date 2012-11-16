@@ -164,6 +164,7 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
         mRecorder.setOutputFormat(outputfileformat);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mRecorder.setOutputFile(mSampleFile.getAbsolutePath());
+        mRecorder.setAudioEncodingBitRate(SoundRecorder.BITRATE_AMR);
 
         // Handle IOException
         try {
