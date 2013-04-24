@@ -28,7 +28,8 @@ import android.view.View;
 
 public class VUMeter extends View {
     static final float PIVOT_RADIUS = 3.5f;
-    static final float PIVOT_Y_OFFSET = 10f;
+//    static final float PIVOT_Y_OFFSET = 10f;
+    static final float PIVOT_Y_OFFSET = 1f;
     static final float SHADOW_OFFSET = 2.0f;
     static final float DROPOFF_STEP = 0.18f;
     static final float SURGE_STEP = 0.35f;
