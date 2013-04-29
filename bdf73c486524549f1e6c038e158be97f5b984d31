@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "UQKLNHrQ",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1004395
+      },
+      "writtenOn": "2013-04-29T16:01:50Z",
+      "side": 1,
+      "message": "Do any of these 3 cursor. operations throw an exception? Which one(s)?",
+      "revId": "bdf73c486524549f1e6c038e158be97f5b984d31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "UQALbKnA",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1004395
+      },
+      "writtenOn": "2013-04-29T16:01:50Z",
+      "side": 1,
+      "message": "I can see why the cursor.close() needs to be in an \"if\", but not why it needs to be in a \"try\" ... see previous question.",
+      "revId": "bdf73c486524549f1e6c038e158be97f5b984d31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
