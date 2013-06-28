@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7204092_d52adc7e",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1010292
+      },
+      "writtenOn": "2013-06-28T15:16:53Z",
+      "side": 1,
+      "message": "Those two lines can be collapsed to \u0027if (cursor.moveToFirst())\u0027",
+      "revId": "553af7296b353e76b51fec4b13c4d6c3201d79c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
