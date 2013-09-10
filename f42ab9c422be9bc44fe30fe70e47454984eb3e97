@@ -1,0 +1,7 @@
+Code-Review+2: Glenn Kasten <gkasten@android.com>
+Verified+1: Deckard Autoverifier <deckard@android.com>
+Submitted-by: Glenn Kasten <gkasten@android.com>
+Submitted-at: Tue, 10 Sep 2013 17:54:45 +0000
+Reviewed-on: https://android-review.googlesource.com/63508
+Project: platform/packages/apps/SoundRecorder
+Branch: refs/heads/master
