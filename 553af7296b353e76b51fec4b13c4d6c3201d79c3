@@ -16,6 +16,24 @@
       "revId": "553af7296b353e76b51fec4b13c4d6c3201d79c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ede2251a_ef2d7db0",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1004424
+      },
+      "writtenOn": "2014-01-10T08:31:05Z",
+      "side": 1,
+      "message": "Yep, i\u0027ll upload a new patch after compiling.",
+      "parentUuid": "a7204092_d52adc7e",
+      "revId": "553af7296b353e76b51fec4b13c4d6c3201d79c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
