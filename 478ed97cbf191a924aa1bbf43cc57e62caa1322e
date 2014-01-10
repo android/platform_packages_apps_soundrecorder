@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d38c95d_077d1a94",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1001525
+      },
+      "writtenOn": "2014-01-10T23:26:52Z",
+      "side": 1,
+      "message": "The part above looks OK to me. It\u0027s how it should be, however note that it now returns -1 after getting a null Cursor, which may cause problems below.",
+      "revId": "478ed97cbf191a924aa1bbf43cc57e62caa1322e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d3d554c_83736076",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1001525
+      },
+      "writtenOn": "2014-01-10T23:26:52Z",
+      "side": 1,
+      "message": "getPlaylistId() now returns -1 where there would previously have been an NPE, so this code now continues and tries to create the playlist.\nIf that succeeds, then depending on why the query previously failed, there may now be more than one playlist with the same name.",
+      "revId": "478ed97cbf191a924aa1bbf43cc57e62caa1322e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d3d554c_0370b064",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1001525
+      },
+      "writtenOn": "2014-01-10T23:26:52Z",
+      "side": 1,
+      "message": "However if creating the playlist failed, then this next call to getPlaylistId() will likely fail also, so -1 will be passed to addToPlaylist(), which probably will cause an exception in that method.",
+      "revId": "478ed97cbf191a924aa1bbf43cc57e62caa1322e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
