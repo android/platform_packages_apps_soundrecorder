@@ -34,9 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="115dip"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="-4dip"
-            android:layout_marginRight="10dip"
+            android:layout_centerInParent="true"
             style="@android:style/TextAppearance.Large" />
 
         <LinearLayout android:id="@+id/stateMessage2Layout"
