@@ -405,11 +405,12 @@ public class SoundRecorder extends Activity
 
                     if (AUDIO_AMR.equals(mRequestedType)) {
                         mRemainingTimeCalculator.setBitRate(BITRATE_AMR);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.AMR_NB, ".amr", this);
+                        mRecorder.startRecording(MediaRecorder.OutputFormat.AMR_NB, ".amr",
+                          this, BITRATE_AMR);
                     } else if (AUDIO_3GPP.equals(mRequestedType)) {
                         mRemainingTimeCalculator.setBitRate(BITRATE_3GPP);
                         mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp",
-                                this);
+                                this, BITRATE_3GPP);
                     } else {
                         throw new IllegalArgumentException("Invalid output file type requested");
                     }

@@ -143,7 +143,7 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
         signalStateChanged(IDLE_STATE);
     }
     
-    public void startRecording(int outputfileformat, String extension, Context context) {
+    public void startRecording(int outputfileformat, String extension, Context context, int bitRate) {
         stop();
         
         if (mSampleFile == null) {
@@ -163,6 +163,7 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(outputfileformat);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioEncodingBitRate(bitRate);
         mRecorder.setOutputFile(mSampleFile.getAbsolutePath());
 
         // Handle IOException
