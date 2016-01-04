@@ -20,6 +20,9 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.content.pm.PackageManager;
+import android.widget.Toast;
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -208,6 +211,14 @@ public class SoundRecorder extends Activity
     static final int BITRATE_AMR =  5900; // bits/sec
     static final int BITRATE_3GPP = 5900;
     
+
+    private int mNumPermissionsToRequest = 0;
+    private boolean mShouldRequestSoundPermission = false;
+    private boolean mShouldRequestStoragePermission = false;
+    private int mIndexPermissionRequestSound = 0;
+    private int mIndexPermissionRequestStorage = 0;
+    private static final int PERMISSION_REQUEST_CODE = 0;
+
     WakeLock mWakeLock;
     String mRequestedType = AUDIO_ANY;
     Recorder mRecorder;
@@ -245,6 +256,7 @@ public class SoundRecorder extends Activity
     public void onCreate(Bundle icycle) {
         super.onCreate(icycle);
 
+	checkPermission();
         Intent i = getIntent();
         if (i != null) {
             String s = i.getType();
@@ -857,5 +869,52 @@ public class SoundRecorder extends Activity
                 .setCancelable(false)
                 .show();
         }
+    }
+
+    private void checkPermission(){
+	if(checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+			!= PackageManager.PERMISSION_GRANTED){
+		mNumPermissionsToRequest++;
+		mShouldRequestSoundPermission = true;
+	}
+
+	if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+			!= PackageManager.PERMISSION_GRANTED){
+		mNumPermissionsToRequest++;
+		mShouldRequestStoragePermission  = true;
+	}
+
+	String[] permissionToRequest = new String[mNumPermissionsToRequest];
+		int permissionRequestIndex = 0;
+	if(mShouldRequestSoundPermission){
+		permissionToRequest[permissionRequestIndex] = Manifest.permission.RECORD_AUDIO;
+		mIndexPermissionRequestSound = permissionRequestIndex;
+		permissionRequestIndex++;
+	}
+	if(mShouldRequestStoragePermission){
+		permissionToRequest[permissionRequestIndex] = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+		mIndexPermissionRequestStorage= permissionRequestIndex;
+		permissionRequestIndex++;
+	}
+	if(permissionToRequest.length > 0){
+		requestPermissions(permissionToRequest, PERMISSION_REQUEST_CODE);
+	}
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+		String permissions[], int[] grantResults) {
+	switch (requestCode) {
+	case PERMISSION_REQUEST_CODE:
+		if (grantResults.length > 0
+				&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+			Log.v(TAG, "Grant permission successfully");
+		} else {
+			Log.v(TAG, "Grant permission unsuccessfully");
+		}
+		break;
+	default:
+		break;
+	}
     }
 }
