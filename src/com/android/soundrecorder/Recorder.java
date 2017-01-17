@@ -200,7 +200,11 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
         if (mRecorder == null)
             return;
 
-        mRecorder.stop();
+        try {
+            mRecorder.stop();
+        } catch (RuntimeException e) {
+            Log.w("Recorder", "Catch RuntimeException on MediaRecorder.stop() due to called immediately after MediaRecorder.start().");
+        }
         mRecorder.release();
         mRecorder = null;
 
