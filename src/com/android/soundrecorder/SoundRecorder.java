@@ -28,9 +28,11 @@ import android.content.Intent;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.Manifest;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -50,6 +52,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Calculates remaining recording time based on available disk space and
@@ -359,6 +364,86 @@ public class SoundRecorder extends Activity
         am.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
     }
 
+    void onClickRecordButton() {
+        int recordAudioPermission = checkSelfPermission(Manifest.permission.RECORD_AUDIO);
+        int readExtStorage = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+        int writeExtStorage = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        List<String> mPermissionStrings = new ArrayList<String>();
+        boolean mRequest = false;
+        boolean mShowPermission = false;
+        if (recordAudioPermission != PackageManager.PERMISSION_GRANTED) {
+            mPermissionStrings.add(Manifest.permission.RECORD_AUDIO);
+            mRequest = true;
+            mShowPermission = mShowPermission || shouldShowRequestPermissionRationale(
+                                  Manifest.permission.RECORD_AUDIO);
+        }
+        if (readExtStorage != PackageManager.PERMISSION_GRANTED) {
+            mPermissionStrings.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            mRequest = true;
+            mShowPermission = mShowPermission || shouldShowRequestPermissionRationale(
+                                  Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (writeExtStorage != PackageManager.PERMISSION_GRANTED) {
+            mPermissionStrings.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            mRequest = true;
+            mShowPermission = mShowPermission || shouldShowRequestPermissionRationale(
+                                  Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (mRequest == true) {
+            if (mShowPermission == false) {
+                Toast.makeText(
+                    getApplicationContext(),
+                    com.mediatek.internal.R.string.denied_required_permission,
+                    Toast.LENGTH_SHORT).show();
+            }
+            String[] mPermissionList = new String[mPermissionStrings.size()];
+            mPermissionList = mPermissionStrings.toArray(mPermissionList);
+            requestPermissions(mPermissionList, 1);
+            return;
+        }
+        mRemainingTimeCalculator.reset();
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            mSampleInterrupted = true;
+            mErrorUiMessage = getResources().getString(R.string.insert_sd_card);
+            updateUi();
+        } else if (!mRemainingTimeCalculator.diskSpaceAvailable()) {
+            mSampleInterrupted = true;
+            mErrorUiMessage = getResources().getString(R.string.storage_is_full);
+            updateUi();
+        } else {
+            stopAudioPlayback();
+
+            if (AUDIO_AMR.equals(mRequestedType)) {
+                mRemainingTimeCalculator.setBitRate(BITRATE_AMR);
+                mRecorder.startRecording(MediaRecorder.OutputFormat.AMR_NB, ".amr", this);
+            } else if (AUDIO_3GPP.equals(mRequestedType)) {
+                mRemainingTimeCalculator.setBitRate(BITRATE_3GPP);
+                mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp",
+                        this);
+            } else {
+                throw new IllegalArgumentException("Invalid output file type requested");
+            }
+
+            if (mMaxFileSize != -1) {
+                mRemainingTimeCalculator.setFileSizeLimit(
+                        mRecorder.sampleFile(), mMaxFileSize);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            int[] grantResults) {
+        if (requestCode == 1) {
+            boolean granted = true;
+            for (int counter = 0; counter < permissions.length; counter++) {
+                granted = granted && (grantResults[counter] == PackageManager.PERMISSION_GRANTED);
+            }
+            if (granted == true) {
+                onClickRecordButton();
+            }
+        }
+    }
     /*
      * Handle the buttons.
      */
@@ -368,34 +453,7 @@ public class SoundRecorder extends Activity
 
         switch (button.getId()) {
             case R.id.recordButton:
-                mRemainingTimeCalculator.reset();
-                if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    mSampleInterrupted = true;
-                    mErrorUiMessage = getResources().getString(R.string.insert_sd_card);
-                    updateUi();
-                } else if (!mRemainingTimeCalculator.diskSpaceAvailable()) {
-                    mSampleInterrupted = true;
-                    mErrorUiMessage = getResources().getString(R.string.storage_is_full);
-                    updateUi();
-                } else {
-                    stopAudioPlayback();
-
-                    if (AUDIO_AMR.equals(mRequestedType)) {
-                        mRemainingTimeCalculator.setBitRate(BITRATE_AMR);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.AMR_NB, ".amr", this);
-                    } else if (AUDIO_3GPP.equals(mRequestedType)) {
-                        mRemainingTimeCalculator.setBitRate(BITRATE_3GPP);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp",
-                                this);
-                    } else {
-                        throw new IllegalArgumentException("Invalid output file type requested");
-                    }
-                    
-                    if (mMaxFileSize != -1) {
-                        mRemainingTimeCalculator.setFileSizeLimit(
-                                mRecorder.sampleFile(), mMaxFileSize);
-                    }
-                }
+                onClickRecordButton();
                 break;
             case R.id.playButton:
                 mRecorder.startPlayback();
