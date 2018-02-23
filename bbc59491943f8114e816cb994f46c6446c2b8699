@@ -1,0 +1,8 @@
+Verified+1: hansson <hansson@google.com>
+Code-Review+2: Narayan Kamath <narayan@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: hansson <hansson@google.com>
+Submitted-at: Fri, 23 Feb 2018 07:25:46 +0000
+Reviewed-on: https://android-review.googlesource.com/624406
+Project: platform/packages/apps/SoundRecorder
+Branch: refs/heads/master
