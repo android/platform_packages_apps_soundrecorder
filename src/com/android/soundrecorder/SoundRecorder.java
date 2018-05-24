@@ -17,9 +17,12 @@
 package com.android.soundrecorder;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -28,6 +31,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -41,6 +45,7 @@ import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.PowerManager.WakeLock;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -207,6 +212,12 @@ public class SoundRecorder extends Activity
     
     static final int BITRATE_AMR =  5900; // bits/sec
     static final int BITRATE_3GPP = 5900;
+
+    static final String[] REQUIRED_PERMISSIONS = new String[] {
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    static final int REQUEST_PERMISSIONS = 0;
     
     WakeLock mWakeLock;
     String mRequestedType = AUDIO_ANY;
@@ -359,6 +370,46 @@ public class SoundRecorder extends Activity
         am.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
     }
 
+    private String[] getDeniedPermissions() {
+        List<String> denied = new ArrayList<>();
+        for (String perm : REQUIRED_PERMISSIONS) {
+            if (ActivityCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
+                denied.add(perm);
+            }
+        }
+        return denied.toArray(new String[0]);
+    }
+
+    private void startRecording() {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            mSampleInterrupted = true;
+            mErrorUiMessage = getResources().getString(R.string.insert_sd_card);
+            updateUi();
+        } else if (!mRemainingTimeCalculator.diskSpaceAvailable()) {
+            mSampleInterrupted = true;
+            mErrorUiMessage = getResources().getString(R.string.storage_is_full);
+            updateUi();
+        } else {
+            stopAudioPlayback();
+
+            if (AUDIO_AMR.equals(mRequestedType)) {
+                mRemainingTimeCalculator.setBitRate(BITRATE_AMR);
+                mRecorder.startRecording(MediaRecorder.OutputFormat.AMR_NB, ".amr", this);
+            } else if (AUDIO_3GPP.equals(mRequestedType)) {
+                mRemainingTimeCalculator.setBitRate(BITRATE_3GPP);
+                mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp",
+                        this);
+            } else {
+                throw new IllegalArgumentException("Invalid output file type requested");
+            }
+
+            if (mMaxFileSize != -1) {
+                mRemainingTimeCalculator.setFileSizeLimit(
+                        mRecorder.sampleFile(), mMaxFileSize);
+            }
+        }
+    }
+
     /*
      * Handle the buttons.
      */
@@ -369,33 +420,12 @@ public class SoundRecorder extends Activity
         switch (button.getId()) {
             case R.id.recordButton:
                 mRemainingTimeCalculator.reset();
-                if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    mSampleInterrupted = true;
-                    mErrorUiMessage = getResources().getString(R.string.insert_sd_card);
-                    updateUi();
-                } else if (!mRemainingTimeCalculator.diskSpaceAvailable()) {
-                    mSampleInterrupted = true;
-                    mErrorUiMessage = getResources().getString(R.string.storage_is_full);
-                    updateUi();
-                } else {
-                    stopAudioPlayback();
-
-                    if (AUDIO_AMR.equals(mRequestedType)) {
-                        mRemainingTimeCalculator.setBitRate(BITRATE_AMR);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.AMR_NB, ".amr", this);
-                    } else if (AUDIO_3GPP.equals(mRequestedType)) {
-                        mRemainingTimeCalculator.setBitRate(BITRATE_3GPP);
-                        mRecorder.startRecording(MediaRecorder.OutputFormat.THREE_GPP, ".3gpp",
-                                this);
-                    } else {
-                        throw new IllegalArgumentException("Invalid output file type requested");
-                    }
-                    
-                    if (mMaxFileSize != -1) {
-                        mRemainingTimeCalculator.setFileSizeLimit(
-                                mRecorder.sampleFile(), mMaxFileSize);
-                    }
+                String[] denied = getDeniedPermissions();
+                if (denied.length > 0) {
+                    ActivityCompat.requestPermissions(this, denied, REQUEST_PERMISSIONS);
+                    return;
                 }
+                startRecording();
                 break;
             case R.id.playButton:
                 mRecorder.startPlayback();
@@ -856,6 +886,22 @@ public class SoundRecorder extends Activity
                 .setPositiveButton(R.string.button_ok, null)
                 .setCancelable(false)
                 .show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSIONS) {
+            if (grantResults.length > 0) {
+                for (int g : grantResults) {
+                    if (g != PackageManager.PERMISSION_GRANTED) {
+                        onError(Recorder.INTERNAL_ERROR);
+                        return;
+                    }
+                }
+            }
+            startRecording();
         }
     }
 }

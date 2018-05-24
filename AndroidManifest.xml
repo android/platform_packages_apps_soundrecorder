@@ -17,6 +17,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.soundrecorder">
 
+    <uses-sdk
+      android:targetSdkVersion="26" android:minSdkVersion="14"/>
+
     <original-package android:name="com.android.soundrecorder" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
