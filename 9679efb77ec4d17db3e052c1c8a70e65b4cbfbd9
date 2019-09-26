@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ed052f6_1d554dd6",
+        "filename": "src/com/android/soundrecorder/Recorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1338311
+      },
+      "writtenOn": "2019-09-26T21:07:40Z",
+      "side": 1,
+      "message": "nit: can you make sure line length is 100 characters. \n\nnit: \" due to called immediately\" -\u003e \" due to a call immediately\"\nThanks\n\nhttps://google.github.io/styleguide/javaguide.html#s4.4-column-limit",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 12
+      },
+      "revId": "9679efb77ec4d17db3e052c1c8a70e65b4cbfbd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
