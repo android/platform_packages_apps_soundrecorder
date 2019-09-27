@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "097cd553_40937457",
+        "filename": "src/com/android/soundrecorder/Recorder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1338311
+      },
+      "writtenOn": "2019-09-27T18:07:47Z",
+      "side": 1,
+      "message": "nit: please indent \"immediately line by 2 more spaces to be consistent with the rest of the code. Thanks.\n\nWhen line-wrapping, each line after the first (each continuation line) is indented at least +4 from the original line.\n\nhttps://google.github.io/styleguide/javaguide.html#s4.5.2-line-wrapping-indent",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 14
+      },
+      "revId": "f4310bc0d751ca4e7698be5e94863f37c4549d1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
