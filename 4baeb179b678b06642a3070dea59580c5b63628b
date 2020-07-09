@@ -16,6 +16,24 @@
       "revId": "4baeb179b678b06642a3070dea59580c5b63628b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1e701bb_508ed52c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1497372
+      },
+      "writtenOn": "2020-07-09T22:40:43Z",
+      "side": 1,
+      "message": "Done in another patch: https://android-review.googlesource.com/c/platform/packages/apps/SoundRecorder/+/1359922\nPlease give a check, thanks.\nLater we can abandon this one.",
+      "parentUuid": "87b23f12_a23afd61",
+      "revId": "4baeb179b678b06642a3070dea59580c5b63628b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
