@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75cbdb7c_7c50da42",
+        "filename": "src/com/android/soundrecorder/Recorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1338311
+      },
+      "writtenOn": "2020-07-09T17:51:03Z",
+      "side": 1,
+      "message": "nit: is it possible to delete the extra tabs(?) at line#140, 142, 145, 148 and 153? Thanks",
+      "revId": "0a05ca9224212dd57cab7cd2a435687bcae484f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
