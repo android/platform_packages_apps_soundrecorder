@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a23c625_3e954dd2",
+        "filename": "src/com/android/soundrecorder/Recorder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1338311
+      },
+      "writtenOn": "2020-07-09T22:55:26Z",
+      "side": 1,
+      "message": "nit: line length needs to be less than 100 characters. \nhttps://source.android.com/setup/contribute/code-style#limit-line-length",
+      "revId": "d903e638658a6f77ec00ce6242152270d2648f81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
