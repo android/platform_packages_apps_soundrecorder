@@ -70,6 +70,30 @@
       "revId": "1339ce2a3f0a8de0c876eb1998ac68c4d3339c05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a84f65f_e99834d4",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1497372
+      },
+      "writtenOn": "2020-07-10T01:22:11Z",
+      "side": 1,
+      "message": "Please check another patch here:\nhttps://android-review.googlesource.com/c/platform/packages/apps/SoundRecorder/+/1360038\nThanks.",
+      "parentUuid": "f95fe8ba_37d92594",
+      "range": {
+        "startLine": 875,
+        "startChar": 0,
+        "endLine": 875,
+        "endChar": 1
+      },
+      "revId": "1339ce2a3f0a8de0c876eb1998ac68c4d3339c05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
