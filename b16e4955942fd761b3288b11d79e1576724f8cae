@@ -1,0 +1,10 @@
+Open-Source-Licensing+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Code-Review+2: Raman Tenneti <rtenneti@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Autosubmit+1: Raman Tenneti <rtenneti@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Fri, 10 Jul 2020 01:55:30 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/apps/SoundRecorder/+/1358486
+Project: platform/packages/apps/SoundRecorder
+Branch: refs/heads/master
