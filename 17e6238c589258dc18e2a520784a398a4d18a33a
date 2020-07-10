@@ -16,6 +16,24 @@
       "revId": "17e6238c589258dc18e2a520784a398a4d18a33a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a26fdab_db42c855",
+        "filename": "src/com/android/soundrecorder/SoundRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1497372
+      },
+      "writtenOn": "2020-07-10T02:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d5f6abf_6bfb03f7",
+      "revId": "17e6238c589258dc18e2a520784a398a4d18a33a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
